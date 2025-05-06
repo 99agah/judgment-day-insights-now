@@ -8,7 +8,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center islamic-pattern p-4 animate-page-transition">
+    <div className="min-h-screen flex flex-col justify-center items-center islamic-pattern p-4">
       <Card className="max-w-lg w-full mx-auto islamic-card hover-lift relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-islamic-teal via-islamic-green to-islamic-gold"></div>
         <CardContent className="pt-8 pb-6">

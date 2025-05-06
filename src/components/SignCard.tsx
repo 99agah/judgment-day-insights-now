@@ -16,12 +16,21 @@ interface SignCardProps {
 const SignCard = ({ sign, onVoteClick, onDiscussClick }: SignCardProps) => {
   const [voteCount, setVoteCount] = useState(sign.votes);
   const [isVoteAnimating, setIsVoteAnimating] = useState(false);
+  const [showVoteMessage, setShowVoteMessage] = useState(false);
   
   const handleVoteClick = () => {
     onVoteClick(sign.id);
     setVoteCount(prevCount => prevCount + 1);
     setIsVoteAnimating(true);
-    setTimeout(() => setIsVoteAnimating(false), 300);
+    setShowVoteMessage(true);
+    
+    setTimeout(() => {
+      setIsVoteAnimating(false);
+    }, 600);
+    
+    setTimeout(() => {
+      setShowVoteMessage(false);
+    }, 1500);
   };
 
   return (
@@ -54,23 +63,34 @@ const SignCard = ({ sign, onVoteClick, onDiscussClick }: SignCardProps) => {
       </CardContent>
       
       <CardFooter className="pt-3 flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <Button 
-            variant="outline" 
-            size="sm"
-            className="flex items-center gap-1 border-islamic-teal/50 hover:bg-islamic-teal/10"
-            onClick={handleVoteClick}
-          >
-            <Vote className="h-4 w-4 text-islamic-teal" />
-            <span>Vote</span>
-          </Button>
+        <div className="flex flex-col">
+          <div className="flex items-center space-x-2">
+            <Button 
+              variant="outline" 
+              size="sm"
+              className={cn(
+                "flex items-center gap-1 border-islamic-teal/50 hover:bg-islamic-teal/10",
+                isVoteAnimating && "vote-animation"
+              )}
+              onClick={handleVoteClick}
+            >
+              <Vote className="h-4 w-4 text-islamic-teal" />
+              <span>Vote</span>
+            </Button>
+            
+            <span className={cn(
+              "font-semibold",
+              isVoteAnimating && "vote-count-animate"
+            )}>
+              {voteCount}
+            </span>
+          </div>
           
-          <span className={cn(
-            "font-semibold",
-            isVoteAnimating && "vote-count-animate"
-          )}>
-            {voteCount}
-          </span>
+          {showVoteMessage && (
+            <span className="vote-success-message mt-1 ml-1">
+              Vote recorded!
+            </span>
+          )}
         </div>
         
         <Button 

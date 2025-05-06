@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import { ChevronUp, ChevronDown, MessageCircle, ArrowLeft } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
 import { sampleSigns } from '@/data/signs';
 import { Sign, Comment as CommentType } from '@/types';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const DiscussionsPage = () => {
   const [searchParams] = useSearchParams();
@@ -62,7 +62,7 @@ const DiscussionsPage = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 animate-page-transition pb-20 md:pb-4 md:pl-24">
+    <div className="min-h-screen p-4 animate-page-transition md:pl-24">
       <div className="max-w-3xl mx-auto">
         {sign ? (
           <>
@@ -119,70 +119,74 @@ const DiscussionsPage = () => {
                 </CardContent>
               </Card>
               
-              {comments.length > 0 ? (
-                comments.map(comment => (
-                  <Card key={comment.id} className="mb-4">
-                    <CardHeader className="pb-2">
-                      <div className="flex items-center">
-                        <Avatar className="h-8 w-8 mr-2">
-                          <AvatarFallback>{comment.username[0].toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="font-medium">{comment.username}</p>
-                          <p className="text-xs text-muted-foreground">{comment.date}</p>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p>{comment.text}</p>
-                    </CardContent>
-                    <CardFooter className="flex justify-between items-center pt-0">
-                      <div className="flex items-center space-x-2">
-                        <Button variant="ghost" size="sm" onClick={() => handleVote(comment.id, 'up')}>
-                          <ChevronUp className="h-4 w-4" />
-                        </Button>
-                        <span>{comment.votes}</span>
-                        <Button variant="ghost" size="sm" onClick={() => handleVote(comment.id, 'down')}>
-                          <ChevronDown className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      <Button variant="ghost" size="sm">Reply</Button>
-                    </CardFooter>
-                    
-                    {comment.replies.length > 0 && (
-                      <div className="ml-8 mr-4 mb-4 border-l-2 pl-4 border-muted">
-                        {comment.replies.map(reply => (
-                          <div key={reply.id} className="mt-3">
-                            <div className="flex items-center">
-                              <Avatar className="h-6 w-6 mr-2">
-                                <AvatarFallback>{reply.username[0].toUpperCase()}</AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <p className="text-sm font-medium">{reply.username}</p>
-                                <p className="text-xs text-muted-foreground">{reply.date}</p>
-                              </div>
-                            </div>
-                            <p className="mt-1 text-sm">{reply.text}</p>
-                            <div className="flex items-center mt-1 space-x-1">
-                              <Button variant="ghost" size="sm" className="h-6 px-2">
-                                <ChevronUp className="h-3 w-3" />
-                              </Button>
-                              <span className="text-xs">{reply.votes}</span>
-                              <Button variant="ghost" size="sm" className="h-6 px-2">
-                                <ChevronDown className="h-3 w-3" />
-                              </Button>
+              <ScrollArea className="h-[calc(100vh-450px)]">
+                <div className="pr-4">
+                  {comments.length > 0 ? (
+                    comments.map(comment => (
+                      <Card key={comment.id} className="mb-4">
+                        <CardHeader className="pb-2">
+                          <div className="flex items-center">
+                            <Avatar className="h-8 w-8 mr-2">
+                              <AvatarFallback>{comment.username[0].toUpperCase()}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-medium">{comment.username}</p>
+                              <p className="text-xs text-muted-foreground">{comment.date}</p>
                             </div>
                           </div>
-                        ))}
-                      </div>
-                    )}
-                  </Card>
-                ))
-              ) : (
-                <div className="text-center py-10 text-muted-foreground">
-                  No comments yet. Be the first to start the discussion!
+                        </CardHeader>
+                        <CardContent>
+                          <p>{comment.text}</p>
+                        </CardContent>
+                        <CardFooter className="flex justify-between items-center pt-0">
+                          <div className="flex items-center space-x-2">
+                            <Button variant="ghost" size="sm" onClick={() => handleVote(comment.id, 'up')}>
+                              <ChevronUp className="h-4 w-4" />
+                            </Button>
+                            <span>{comment.votes}</span>
+                            <Button variant="ghost" size="sm" onClick={() => handleVote(comment.id, 'down')}>
+                              <ChevronDown className="h-4 w-4" />
+                            </Button>
+                          </div>
+                          <Button variant="ghost" size="sm">Reply</Button>
+                        </CardFooter>
+                        
+                        {comment.replies.length > 0 && (
+                          <div className="ml-8 mr-4 mb-4 border-l-2 pl-4 border-muted">
+                            {comment.replies.map(reply => (
+                              <div key={reply.id} className="mt-3">
+                                <div className="flex items-center">
+                                  <Avatar className="h-6 w-6 mr-2">
+                                    <AvatarFallback>{reply.username[0].toUpperCase()}</AvatarFallback>
+                                  </Avatar>
+                                  <div>
+                                    <p className="text-sm font-medium">{reply.username}</p>
+                                    <p className="text-xs text-muted-foreground">{reply.date}</p>
+                                  </div>
+                                </div>
+                                <p className="mt-1 text-sm">{reply.text}</p>
+                                <div className="flex items-center mt-1 space-x-1">
+                                  <Button variant="ghost" size="sm" className="h-6 px-2">
+                                    <ChevronUp className="h-3 w-3" />
+                                  </Button>
+                                  <span className="text-xs">{reply.votes}</span>
+                                  <Button variant="ghost" size="sm" className="h-6 px-2">
+                                    <ChevronDown className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </Card>
+                    ))
+                  ) : (
+                    <div className="text-center py-10 text-muted-foreground">
+                      No comments yet. Be the first to start the discussion!
+                    </div>
+                  )}
                 </div>
-              )}
+              </ScrollArea>
             </div>
           </>
         ) : (

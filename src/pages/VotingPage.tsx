@@ -8,6 +8,7 @@ import SignCard from '@/components/SignCard';
 import { Sign } from '@/types';
 import { Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const VotingPage = () => {
   const [signs, setSigns] = useState<Sign[]>(sampleSigns);
@@ -51,7 +52,7 @@ const VotingPage = () => {
   });
 
   return (
-    <div className="min-h-screen p-4 animate-page-transition pb-20 md:pb-4 md:pl-24">
+    <div className="min-h-screen p-4 animate-page-transition md:pl-24">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold mb-6">Vote on Signs</h1>
         
@@ -73,22 +74,24 @@ const VotingPage = () => {
           </TabsList>
         </Tabs>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredSigns.length > 0 ? (
-            filteredSigns.map(sign => (
-              <SignCard 
-                key={sign.id} 
-                sign={sign} 
-                onVoteClick={handleVoteClick} 
-                onDiscussClick={handleDiscussClick} 
-              />
-            ))
-          ) : (
-            <p className="col-span-full text-center py-10 text-muted-foreground">
-              No signs found matching your search criteria.
-            </p>
-          )}
-        </div>
+        <ScrollArea className="h-[calc(100vh-220px)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pr-4">
+            {filteredSigns.length > 0 ? (
+              filteredSigns.map(sign => (
+                <SignCard 
+                  key={sign.id} 
+                  sign={sign} 
+                  onVoteClick={handleVoteClick} 
+                  onDiscussClick={handleDiscussClick} 
+                />
+              ))
+            ) : (
+              <p className="col-span-full text-center py-10 text-muted-foreground">
+                No signs found matching your search criteria.
+              </p>
+            )}
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );
