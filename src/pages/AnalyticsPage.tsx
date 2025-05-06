@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,6 +16,11 @@ const AnalyticsPage = () => {
   const [mostVotedSigns, setMostVotedSigns] = useState<Sign[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
   const [pieData, setPieData] = useState<any[]>([]);
+  
+  // For bar chart colors based on category
+  const getBarColor = (entry: any) => {
+    return entry.category === 'major' ? '#D32F2F' : '#0D5F45';
+  };
   
   useEffect(() => {
     // Separate signs by category
@@ -130,8 +134,13 @@ const AnalyticsPage = () => {
                   <Bar 
                     dataKey="votes" 
                     name="Votes"
-                    fill={(entry) => entry.category === 'major' ? '#D32F2F' : '#0D5F45'}
-                  />
+                    fill="#8884d8"
+                  >
+                    {/* Use Cell components to set dynamic colors */}
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={getBarColor(entry)} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
