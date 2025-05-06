@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				islamic: {
+					green: '#0D5F45',
+					'light-green': '#7FB685',
+					gold: '#D4AF37',
+					'light-gold': '#F8E9A1',
+					cream: '#F8F4E3',
+					brown: '#544738',
+					'dark-blue': '#1A3C61',
 				}
 			},
 			borderRadius: {
@@ -69,26 +79,40 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
-				'accordion-down': {
-					from: {
-						height: '0'
+				"accordion-down": {
+					from: { height: "0", opacity: "0" },
+					to: { height: "var(--radix-accordion-content-height)", opacity: "1" }
+				},
+				"accordion-up": {
+					from: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+					to: { height: "0", opacity: "0" }
+				},
+				"fade-in": {
+					"0%": {
+						opacity: "0",
+						transform: "translateY(10px)"
 					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
+					"100%": {
+						opacity: "1",
+						transform: "translateY(0)"
 					}
 				},
-				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
+				"page-transition": {
+					"0%": { 
+						opacity: "0",
+						transform: "translateX(20px)"
 					},
-					to: {
-						height: '0'
+					"100%": { 
+						opacity: "1", 
+						transform: "translateX(0)" 
 					}
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+				"fade-in": "fade-in 0.3s ease-out",
+				"page-transition": "page-transition 0.4s ease-out"
 			}
 		}
 	},
