@@ -64,13 +64,20 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				islamic: {
-					green: '#0D5F45',
-					'light-green': '#7FB685',
-					gold: '#D4AF37',
-					'light-gold': '#F8E9A1',
-					cream: '#F8F4E3',
-					brown: '#544738',
-					'dark-blue': '#1A3C61',
+					green: '#2C9F7E',     // Updated: Fresher teal green
+					'light-green': '#8BDFC7', // Updated: Brighter mint green
+					gold: '#F5B841',      // Updated: Vibrant gold
+					'light-gold': '#FFDD94', // Updated: Warmer light gold
+					cream: '#FEF8EC',     // Updated: Softer cream
+					brown: '#6D5D4B',     // Updated: Lighter brown
+					'dark-blue': '#1E5D8C', // Updated: More vibrant blue
+					teal: '#00A9A5',      // New: Vibrant teal
+					coral: '#FF7F66',     // New: Warm coral accent
+					indigo: '#5B5EDB',    // New: Rich indigo
+					lilac: '#B9B4F4',     // New: Soft lilac
+					azure: '#0094C6',     // New: Bright azure blue
+					sage: '#95C9B8',      // New: Calming sage green
+					sand: '#E1C19D',      // New: Warm sand color
 				}
 			},
 			borderRadius: {
@@ -106,13 +113,34 @@ export default {
 						opacity: "1", 
 						transform: "translateX(0)" 
 					}
+				},
+				"pulse-soft": {
+					"0%": { 
+						transform: "scale(1)" 
+					},
+					"50%": { 
+						transform: "scale(1.02)" 
+					},
+					"100%": { 
+						transform: "scale(1)" 
+					}
+				},
+				"float": {
+					"0%, 100%": { 
+						transform: "translateY(0)" 
+					},
+					"50%": { 
+						transform: "translateY(-5px)" 
+					}
 				}
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 				"fade-in": "fade-in 0.3s ease-out",
-				"page-transition": "page-transition 0.4s ease-out"
+				"page-transition": "page-transition 0.4s ease-out",
+				"pulse-soft": "pulse-soft 3s infinite ease-in-out",
+				"float": "float 6s infinite ease-in-out"
 			}
 		}
 	},
